@@ -38,9 +38,10 @@ print("AAS ID: " + aas_id)
 aas_id_b64 = covertIdB64(aas_id)
 print("AAS ID b64: " + aas_id_b64)
 
-
+submodelOpDataIdB64 = ""
 for i in range(0,len(data["submodels"])) :
     if data["submodels"][i]["idShort"] == "OperationalData":
+        submodelOpDataIdB64 = covertIdB64(data["submodels"][i]["id"])
         aas_opdata = data["submodels"][i]["submodelElements"]
         break
 
@@ -654,7 +655,7 @@ with open(filepath_flow, 'r') as f_flow:
                 propertylink_dict = {}
                 propertylink_dict["name"] = "PropertyLink"
                 propertylink_dict["type"] = "str"
-                propertylink_dict["value"] = aas_id_b64 + "/" + covertIdB64("OperationalData") + "/" + evt_list[j].replace("Evt","")
+                propertylink_dict["value"] = aas_id_b64 + "/" + submodelOpDataIdB64 + "/" + evt_list[j].replace("Evt","")
                 
                 historylength_dict = {}
                 historylength_dict["name"] = "HistoryLength"
@@ -664,7 +665,7 @@ with open(filepath_flow, 'r') as f_flow:
                 propertylinkevt_dict = {}
                 propertylinkevt_dict["name"] = "PropertyLinkEvt"
                 propertylinkevt_dict["type"] = "str"
-                propertylinkevt_dict["value"] = aas_id_b64 + "/" + covertIdB64("OperationalData") + "/" + evt_list[j]
+                propertylinkevt_dict["value"] = aas_id_b64 + "/" + submodelOpDataIdB64 + "/" + evt_list[j]
                 
                 flow_data[i].update({"env":[]})
 
